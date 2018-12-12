@@ -12,6 +12,8 @@ import * as d3 from 'd3';
 
 export class AppComponent implements OnInit{
   public allData;
+  public Highcharts;
+  public chartOptions;
   constructor() {
     this.allData = [];
   }
@@ -21,7 +23,7 @@ export class AppComponent implements OnInit{
     var csvPromise = d3.csv("/assets/blub.csv", data => {
       this.allData.push(data);
     });
-    csvPromise.then(x => {
+    csvPromise.then(() => {
       console.log(this.allData);
       this.Highcharts = Highcharts;
       this.chartOptions = {
