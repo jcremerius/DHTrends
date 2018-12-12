@@ -25,19 +25,34 @@ export class AppComponent implements OnInit{
     });
     csvPromise.then(() => {
       console.log(this.allData);
+      console.log(this.allData[0]["Name"]);
       this.Highcharts = Highcharts;
       this.chartOptions = {
-        "subtitle": { "text": "Highcharts chart" },
-        "series": [{
-          "type": "line",
-          "data": [30,2,3]
-        }, {
-          "data": [5,6,7]
-        }]
+        chart: {
+          renderTo: 'container',
+          type: 'column'
+        },
+        title: {
+          text:'New York'
+        },
+        xAxis:{
+          categories: ["New York", "Manhatten"],
+          title: {
+            text: 'New York'
+          }
+        },
+        yAxis: {
+          min: 0,
+          title: {
+            text: 'Count'
+          }
+        },
+        series: [{name: 'AvgAge', data : [2,3]}, {name: 'AvgSmoker', data : [5,10]}]
       };
-    });
+      });
+    }
 
-  }
+
 
 
   ngOnInit() {
