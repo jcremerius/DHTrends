@@ -20,39 +20,24 @@ export class AppComponent implements OnInit{
 
 
   readfromcsv() {
-    var csvPromise = d3.csv("/assets/blub.csv", data => {
+    var csvPromise = d3.csv("/assets/AllData.csv", data => {
       this.allData.push(data);
     });
     csvPromise.then(() => {
-      console.log(this.allData);
-      console.log(this.allData[0]["Name"]);
+      console.log(this.allData[0]);
       this.Highcharts = Highcharts;
       this.chartOptions = {
-        chart: {
-          renderTo: 'container',
-          type: 'column'
-        },
-        title: {
-          text:'New York'
-        },
-        xAxis:{
-          categories: ["New York", "Manhatten"],
-          title: {
-            text: 'New York'
-          }
-        },
-        yAxis: {
-          min: 0,
-          title: {
-            text: 'Count'
-          }
-        },
-        series: [{name: 'AvgAge', data : [2,3]}, {name: 'AvgSmoker', data : [5,10]}]
+        "subtitle": { "text": "Highcharts chart" },
+        "series": [{
+          "type": "line",
+          "data": [30,2,3]
+        }, {
+          "data": [5,6,7]
+        }]
       };
-      });
-    }
+    });
 
-
+  }
 
 
   ngOnInit() {
