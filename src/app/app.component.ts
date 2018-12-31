@@ -20,11 +20,11 @@ export class AppComponent implements OnInit{
 
 
   readfromcsv() {
-    var csvPromise = d3.csv("/assets/blub.csv", data => {
+    var csvPromise = d3.csv("/assets/AllData.csv", data => {
       this.allData.push(data);
     });
     csvPromise.then(() => {
-      console.log(this.allData);
+      console.log(this.allData[0]);
       this.Highcharts = Highcharts;
       this.chartOptions = {
         "subtitle": { "text": "Highcharts chart" },
