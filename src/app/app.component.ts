@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, NgModule, OnChanges, OnInit} from '@angular/core';
 import * as Highcharts from 'highcharts';
 import * as d3 from 'd3';
-
+import {filter} from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -39,13 +39,17 @@ export class AppComponent implements OnInit{
 
   }
 
-
+  changedSelectedDistricts() {
+    console.log("Changed");
+    console.log(this.allData[0].checked)
+    var selectedDistricts = this.allData.filter(element => element.checked == true);
+    console.log(selectedDistricts);
+    // TODO: Fill charts with data of selected suburbs
+  }
   ngOnInit() {
     this.readfromcsv();
 
   }
-
-
 
 
 }
