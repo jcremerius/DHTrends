@@ -39,11 +39,12 @@ export class AppComponent implements OnInit{
 
   }
 
-  changedSuburbs() {
+  changedSelectedDistricts() {
     console.log("Changed");
     console.log(this.allData[0].checked)
-    var selectedSuburbs = this.allData.filter(element => element.checked == true);
-    console.log(selectedSuburbs);
+    var selectedDistricts = this.allData.filter(element => element.checked == true);
+    console.log(selectedDistricts);
+    // TODO: Fill charts with data of selected suburbs
   }
   ngOnInit() {
     this.readfromcsv();

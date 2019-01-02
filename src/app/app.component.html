@@ -12,8 +12,8 @@
 
 <div>
   <table>
-    <tr *ngFor="let suburb of allData">
-      <label>{{suburb.Name}}</label><input type="checkbox" [(ngModel)]="suburb.checked" (change)="changedSuburbs()">
+    <tr *ngFor="let district of allData">
+      <label>{{district.Name}}</label><input type="checkbox" [(ngModel)]="district.checked" (change)="changedSelectedDistricts()">
     </tr>
 
   </table>
