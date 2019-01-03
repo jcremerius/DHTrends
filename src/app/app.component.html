@@ -1,19 +1,13 @@
 <!--The content below is only a placeholder and can be replaced.-->
 
-<div style="width:65%; float: left;">
-  <highcharts-chart
-    [Highcharts]="Highcharts"
-    [options]="chartOptions"
 
-    style="width: 100%; height: 350px; display: block;"
-  ></highcharts-chart>
+<div #chartTarget style="width:65%; float: left;">
+
 </div>
-
-
 <div>
   <table>
     <tr *ngFor="let district of allData">
-      <label>{{district.Name}}</label><input type="checkbox" [(ngModel)]="district.checked" (change)="changedSelectedDistricts()">
+      <label>{{district.Name}}</label><input type="checkbox" [(ngModel)]="district.checked" (change)="changedSelectedDistricts(district)">
     </tr>
 
   </table>

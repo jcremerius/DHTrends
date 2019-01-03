@@ -1,7 +1,7 @@
-import {Component, NgModule, OnChanges, OnInit} from '@angular/core';
+import {Component, OnInit, ElementRef, ViewChild} from '@angular/core';
 import * as Highcharts from 'highcharts';
 import * as d3 from 'd3';
-import {filter} from 'rxjs/operators';
+import { chart } from 'highcharts';
 
 @Component({
   selector: 'app-root',
@@ -12,12 +12,13 @@ import {filter} from 'rxjs/operators';
 
 export class AppComponent implements OnInit{
   public allData;
-  public Highcharts;
   public chartOptions;
+  public chart;
   constructor() {
     this.allData = [];
   }
-
+  @ViewChild('chartTarget') chartTarget: ElementRef;
+  chart: Highcharts.ChartObject;
 
   readfromcsv() {
     var csvPromise = d3.csv("/assets/AllData.csv", data => {
@@ -25,26 +26,76 @@ export class AppComponent implements OnInit{
     });
     csvPromise.then(() => {
       console.log(this.allData[0]);
-      this.Highcharts = Highcharts;
       this.chartOptions = {
-        "subtitle": { "text": "Highcharts chart" },
-        "series": [{
-          "type": "line",
-          "data": [30,2,3]
-        }, {
-          "data": [5,6,7]
-        }]
+        chart: {
+          type: 'bar'
+        },
+        title: {
+          text: 'New York District Public Health Comparison'
+        },
+        xAxis: {
+          categories: ['Smoking', 'Poverty', 'Obesity'],
+          title: {
+            text: null
+          }
+        },
+        yAxis: {
+          min: 0,
+          title: {
+            text: 'Percentage',
+            align: 'high'
+          },
+          labels: {
+            overflow: 'justify'
+          }
+        },
+        tooltip: {
+          valueSuffix: '%'
+        },
+        plotOptions: {
+          bar: {
+            dataLabels: {
+              enabled: true
+            }
+          }
+        },
+        legend: {
+          layout: 'vertical',
+          align: 'right',
+          verticalAlign: 'top',
+          x: -40,
+          y: 80,
+          floating: true,
+          borderWidth: 1,
+          backgroundColor: '#FFFFFF',
+          shadow: true
+        },
+        credits: {
+          enabled: false
+        }
       };
+      this.chart = chart(this.chartTarget.nativeElement, this.chartOptions);
     });
 
   }
 
-  changedSelectedDistricts() {
+  changedSelectedDistricts(district) {
     console.log("Changed");
-    console.log(this.allData[0].checked)
+    console.log(district.ID);
+    console.log(district.checked);
+    console.log(district);
+    if(district.checked) {
+      this.chart.addSeries({id: district.Name, name: district.Name, data: [parseInt(district.Smoking),parseInt(district.Poverty),parseInt(district.Obesity)]});
+
+    }
+    else {
+      this.chart.get(district.Name).remove();
+    }
     var selectedDistricts = this.allData.filter(element => element.checked == true);
     console.log(selectedDistricts);
-    // TODO: Fill charts with data of selected suburbs
+    // TODO: Fill charts with data of selected districts
+
+
   }
   ngOnInit() {
     this.readfromcsv();
