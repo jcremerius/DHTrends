@@ -18,7 +18,7 @@ export class AppComponent implements OnInit{
     this.allData = [];
   }
   @ViewChild('chartTarget') chartTarget: ElementRef;
-  chart: Highcharts.ChartObject;
+
 
   readfromcsv() {
     var csvPromise = d3.csv("/assets/AllData.csv", data => {
@@ -34,7 +34,7 @@ export class AppComponent implements OnInit{
           text: 'New York District Public Health Comparison'
         },
         xAxis: {
-          categories: ['Smoking', 'Poverty', 'Obesity'],
+          categories: ['Smoking', 'Poverty', 'Obesity', 'Life_expectancy_rate'],
           title: {
             text: null
           }
@@ -85,7 +85,13 @@ export class AppComponent implements OnInit{
     console.log(district.checked);
     console.log(district);
     if(district.checked) {
-      this.chart.addSeries({id: district.Name, name: district.Name, data: [parseInt(district.Smoking),parseInt(district.Poverty),parseInt(district.Obesity)]});
+      this.chart.addSeries({id: district.Name, name: district.Name, data:
+          [parseInt(district.Smoking),
+            parseInt(district.Poverty),
+            parseInt(district.Obesity),
+            parseInt(district.Life_expectancy_rate)
+          ]
+      });
 
     }
     else {
