@@ -1,20 +1,15 @@
 <!--The content below is only a placeholder and can be replaced.-->
 
-
-<div #chartTarget style="width:100%; float: left;">
-
-</div>
-
-
 <div>
-  <table>
-    <tr >
-      <div class="checkbox" *ngFor="let district of allData">
+      <div class="checkbox check" *ngFor="let district of allData">
         <label>
           <input type="checkbox" [(ngModel)]="district.checked" (change)="changedSelectedDistricts(district)">
           {{district.Name}}
         </label>
       </div>
-    </tr>
-  </table>
+</div>
+
+
+<div #chartTarget style="width:100%; float: left;">
+
 </div>
