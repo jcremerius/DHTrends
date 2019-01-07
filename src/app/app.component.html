@@ -1,20 +1,35 @@
 <!--The content below is only a placeholder and can be replaced.-->
 
-<div>
-      <div class="checkbox check" *ngFor="let district of allData">
-        <label>
-          <input type="checkbox" [(ngModel)]="district.checked" (change)="changedSelectedDistricts(district)">
-          {{district.Name}}
-        </label>
-      </div>
+
+<div id="wrapper">
+
+
+  <div id="first">
+    <div class="checkbox" *ngFor="let district of allData">
+      <label>
+        <input type="checkbox" [(ngModel)]="district.checked" (change)="changedSelectedDistricts(district)">
+        {{district.Name}}
+      </label>
+    </div>
+  </div>
+
+  <div id="second">
+    <div #chartTarget style="width:100%; float: left;">
+    </div>
+
+    <div #chartTarget1 style="width:100%; float: left;">
+    </div>
+
+    <div #chartTarget2 style="width:100%; float: left;">
+    </div>
+
+    <div #chartTarget3 style="width:100%; float: left;">
+    </div>
+  </div>
+
+
 </div>
 
 
-<div #chartTarget style="width:100%; float: left;">
 
-</div>
-
-<div #chartTarget1 style="width:100%; float: left;">
-
-</div>
 
