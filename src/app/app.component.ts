@@ -14,13 +14,16 @@ export class AppComponent implements OnInit{
   public allData;
   public chartOptions;
   public chartOptions1;
+  public chartOptions2;
   public chart;
   public chart1;
+  public chart2;
   constructor() {
     this.allData = [];
   }
   @ViewChild('chartTarget') chartTarget: ElementRef;
   @ViewChild('chartTarget1') chartTarget1: ElementRef;
+  @ViewChild('chartTarget2') chartTarget2: ElementRef;
 
 
   readfromcsv() {
@@ -29,10 +32,19 @@ export class AppComponent implements OnInit{
     });
     csvPromise.then(() => {
       console.log(this.allData[0]);
+      this.allData.sort(function(a,b) {
+        if ( a.Name < b.Name )
+          return -1;
+        if ( a.Name > b.Name )
+          return 1;
+        return 0;
+      } );
+      console.log(this.allData[0]);
+
       this.chartOptions = {
         chart: {
           type: 'bar',
-          height: 800
+          height: 800,
         },
         title: {
           text: 'Risk factors'
@@ -101,7 +113,53 @@ export class AppComponent implements OnInit{
           }
         },
         tooltip: {
-          valueSuffix: '%'
+          valueSuffix: ' per 100,000'
+        },
+        plotOptions: {
+          bar: {
+            dataLabels: {
+              enabled: true
+            }
+          }
+        },
+        legend: {
+          align: 'center',
+          verticalAlign: 'bottom',
+          x: 0,
+          y: 0,
+          backgroundColor: '#FFFFFF'
+        },
+        credits: {
+          enabled: false
+        }
+      };
+      // !!!THIRD CHART!!!
+      this.chartOptions2 = {
+        chart: {
+          type: 'bar',
+          height: 500
+        },
+        title: {
+          text: 'Life expectancy'
+        },
+        xAxis: {
+          categories: ['Life expectancy'],
+          title: {
+            text: null
+          }
+        },
+        yAxis: {
+          min: 0,
+          title: {
+            text: 'Age',
+            align: 'high'
+          },
+          labels: {
+            overflow: 'justify'
+          }
+        },
+        tooltip: {
+          valueSuffix: ' years'
         },
         plotOptions: {
           bar: {
@@ -123,6 +181,7 @@ export class AppComponent implements OnInit{
       };
       this.chart = chart(this.chartTarget.nativeElement, this.chartOptions);
       this.chart1 = chart(this.chartTarget1.nativeElement, this.chartOptions1);
+      this.chart2 = chart(this.chartTarget2.nativeElement, this.chartOptions2);
     });
 
   }
@@ -156,11 +215,17 @@ export class AppComponent implements OnInit{
             parseInt(district.Stroke_Hosp)
           ]
       });
+      this.chart2.addSeries({id: district.Name, name: district.Name, data:
+          [parseInt(district.Life_expectancy_rate)
+          ]
+      });
+
 
     }
     else {
       this.chart.get(district.Name).remove();
       this.chart1.get(district.Name).remove();
+      this.chart2.get(district.Name).remove();
     }
     var selectedDistricts = this.allData.filter(element => element.checked == true);
     console.log(selectedDistricts);

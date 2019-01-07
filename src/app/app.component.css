@@ -1,3 +1,21 @@
 .check {
   display: inline;
 }
+
+#wrapper {
+  heigth: 100%;
+  width: 100%;
+  overflow: visible; /* will contain if #first is longer than #second */
+}
+#first {
+  width: 15%;
+  float:left; /* add this */
+
+  hight: 100%;
+  top: 0;
+  bottom: 0;
+}
+#second {
+  width: 85%;
+  overflow: hidden; /* if you don't want #second to wrap below #first */
+}
