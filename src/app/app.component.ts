@@ -320,8 +320,6 @@ export class AppComponent implements OnInit{
       this.chart2.get(district.Name).remove();
       this.chart3.get(district.Name).remove();
     }
-    var selectedDistricts = this.allData.filter(element => element.checked == true);
-    console.log(selectedDistricts);
 
 
   }
