@@ -223,7 +223,7 @@ export class AppComponent implements OnInit{
         yAxis: {
           min: 0,
           title: {
-            text: 'Age',
+            text: 'Percentage',
             align: 'high'
           },
           labels: {
@@ -305,7 +305,7 @@ export class AppComponent implements OnInit{
             parseInt(district.Nonwhite_rate),
             parseInt(district.Raceasian_rate),
             parseInt(district.Raceblack_rate),
-            parseInt(district.Racewhite_rank),
+            parseInt(district.Racewhite_Rate),
             parseInt(district.Racehispanic_rate),
             parseInt(district.Raceother_rate)
 
